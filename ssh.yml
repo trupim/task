@@ -1,0 +1,18 @@
+- hosts: all
+  tasks:
+  - name: install openssh-server
+    yum:
+       name: openssh-server
+       state: present
+  - name: start sshd 
+    service:
+           name: sshd 
+           state: started
+           enabled: yes                 
+  - name: firewall access https 
+    firewalld:
+         zone: public
+         service: ssh
+         permanent: yes  
+         state: enabled 
+ 

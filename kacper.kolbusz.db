@@ -1,0 +1,45 @@
+$TTL 86400 
+@ IN SOA dns-primary.kacper.kolbusz. admin.kacper.kolbusz. (
+
+                                                2020011800 ;Serial
+
+                                                3600 ;Refresh
+
+                                                1800 ;Retry
+
+                                                604800 ;Expire
+
+                                                86400 ;Minimum TTL
+
+)
+
+
+
+;Name Server Information
+
+@ IN NS dns-primary.kacper.kolbusz.
+
+
+
+;IP Address for Name Server
+
+dns-primary IN A 192.168.0.248
+
+
+
+;Mail Server MX (Mail exchanger) Record
+
+kacper.kolbusz. IN MX 10 mail.kacper.kolbusz.
+
+
+
+;A Record for the following Host name
+ 
+apache  IN A 192.168.0.248
+
+mail IN   A   192.168.0.248
+
+nginx   IN A   192.168.0.248 
+;CNAME Record
+
+ftp  IN   CNAME www.kacper.kolbusz.

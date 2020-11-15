@@ -1,0 +1,26 @@
+     - hosts: all
+       tasks:
+       - name: Install mysql
+         yum:
+            name:
+                - mysql-server
+                - python2-pip
+            state: present
+       - name: pypmysql
+         pip:
+            name: pymysql
+            state: present
+       - name: start mysqld
+         service:
+                name: mysqld
+                state: started     
+       - name: Create a new database
+         mysql_db:
+                 name: phpbb
+                 state: present
+       - name: Create database user
+         mysql_user:
+                    name: phpbbuser
+                    password: 12345
+                    priv: '*.*:ALL,GRANT'
+                    state: present

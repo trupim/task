@@ -1,0 +1,51 @@
+- hosts: all
+  tasks:
+     - name: apache install 
+       yum: 
+         name: httpd
+         state: present
+     - name: runn apache 
+       service:
+         name: httpd
+         state: started   
+     - name: install tools 
+       yum:
+          name: httpd-tools
+          state: present
+     - name: enable httpd 
+       service:
+         name: httpd 
+         enabled: yes     
+     - name: module enable 
+       yum:
+          name:
+              - php
+              - php-fpm 
+              - php-mysqlnd
+          state: present
+     - name: start php-fpm
+       service: 
+              name: php-fpm 
+              state: started
+     - name: enable php-fpm
+       service:
+              name: php-fpm
+              enabled: yes   
+     - name: firewall access https 
+       firewalld:
+         zone: public
+         service: https
+         permanent: yes 
+         state: enabled 
+     - name: firewall access http
+       firewalld:
+         zone: public
+         service: http
+         permanent: yes 
+         state: enabled
+     - name: reload 
+       systemd:
+         name: firewalld
+         state: reloaded
+     - name: phpinfo
+       shell: printf '<?php phpinfo(); ?>' > /var/www/html/info.php
